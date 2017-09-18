@@ -1,0 +1,6 @@
+<h2 n:if="!(isset($nastav['view_h2']) && !$nastav['view_h2'])">
+  {$clanok->view_name}
+</h2>
+{if $clanok->clanok_lang->text}
+  {$clanok->clanok_lang->text|noescape|obr_v_txt|koncova_znacka}
+{/if}

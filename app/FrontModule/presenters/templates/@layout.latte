@@ -4,7 +4,7 @@
  *
  *	Modul: FRONT
  *
- * Posledna zmena(last change): 19.05.2017
+ * Posledna zmena(last change): 17.07.2017
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
@@ -26,6 +26,7 @@
   <meta name="author" content="{$udaje['autor']}" />
   <title n:snippet="title">{$udaje['titulka']} {block title|stripHtml|upper}{/block}</title>
   {control css}
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:300,400,700" rel="stylesheet">
   {* ----- Favicon ------ *}
   <link rel="shortcut icon" href="{$basePath}/favicon.ico" type="image/x-icon">
   {block head}{/block}
@@ -33,45 +34,28 @@
 </head>
 
 <body>
-  <div class="container main-dokument">
-    <header class="hlavicka">
-      <nav class="subnavigacia" n:snippet="second_nav">
-        {control menu templateType=>'fixed', templateFile=>'Echo_Fixed_Main2', cast=>2, article_avatar_view_in =>0}
-      </nav>
-      <h1 n:snippet="h1"><a n:tag-if="FALSE" n:href="Homepage:">{$udaje['titulka']}</a>
-        <br />{*ifset $udaje['nazov']}{$udaje['nazov']|striptags}{/ifset*}
-        <small n:ifset="$udaje['h1part2']">{$udaje['h1part2']|striptags}</small>
-      </h1>
-      <div class="hlavickaM">
-        <div id="logofsc">
-          <img src="{$basePath}/www/images/logoML.png" alt="Logo Mestských Lesov Poprad" title="Mestské lesy Poprad" width="101" height="110" />
-        </div>
-        <!-- ——————————————————— primárna navigácia (oranžové tlačidlá) ——————————————————— -->
-        <div class="navigacia">
-          {control menu templateType=>'tree', templateFile=>'LesyPP_Tree_Main', cast=>1, article_avatar_view_in =>0, ukaz=>FALSE} {*, divClass=>'navigacia'*}
-          <ul>
-           <li style="padding: 4ex 1ex; background: #CCC;">
-            <form id="hladat" action="./index.php?clanok=-2" method="post">
-              <fieldset>
-                <label for="vyhladavanie"> Vyhľadávanie:<br /></label>
-                <input type="text" id="vyhladavanie" name="vyhladavanie" value="{ifset $_REQUEST["vyhladavanie"]}{$_REQUEST["vyhladavanie"]}{/ifset}" />			 
-                <input name="tl_vyhladaj" type="submit" class="najdi" value=" " />
-              </fieldset>
-            </form>
-           </li>
-          </ul>
-          <img src="{$basePath}/www/images/logo_fsc_web.png" alt="Logo FSC" title="Zodpovedné obhospodarovanie lesov" width="120" height="150" />
-        </div>
-
-        <div class="slider-main">{control slider}</div>
+  {control menu templateType=>'tree', templateFile=>'LesyPP_Tree_Main', cast=>1, article_avatar_view_in =>0, ukaz=>TRUE}
+  <div id="paralaxDiv" class="parallax">
+    <header class="">
+      <div id="logoMl">
+        <img src="{$basePath}/www/images/logo-mlpp-beztextu.png" class="">
+        <h1>
+          {$udaje['titulka']}
+          {* <br n:ifset="$udaje['h1part2']" /><small n:ifset="$udaje['h1part2']">{$udaje['h1part2']|striptags}</small>*}
+        </h1>
       </div>
     </header>
-    {control confirmForm}
-    {* ----- ZACIATOK content - centralna cast ----- *}
-    <section class="main-content container-fluid" n:snippet="content">
-      {control menu templateType=>'nav', templateFile=>'LesyPP_Nav_Breadcrumb', level=>1}
-      {control userLangMenu}
-      <div n:tag-if="FALSE" {*class="row"*} n:if="count($flashes)">
+    <div class="parallax_layer parallax_layer_0">
+    </div>
+    <div class="parallax_layer parallax_layer_1">
+    </div>
+    <div class="parallax_layer parallax_layer_2">
+    </div>
+    <div class="parallax_cover">
+      {*<div class="slider-main">{control slider}</div>*}
+      {control confirmForm}
+      {* ----- ZACIATOK content - centralna cast ----- *}
+      <div n:tag-if="FALSE" n:if="count($flashes)">
         <div class="flash-messages" n:inner-foreach="$flashes as $flash" n:if="count($flashes)">
           {var $nees = explode(',', $flash->type)}
           <div class="alert alert-{$nees[0]} fade in" role="alert">
@@ -82,37 +66,55 @@
           </div>
         </div>
       </div>
-      {include #content}
-      <aside class="article-podclanky">
-        {block article-podclanky}{/block}
-        {* control news *}
-      </aside>
-    </section>
-    {* ----- Spodok stranky - FOOTER ----- *}
-    <footer n:snippet=footer>
-      {* --- Mapa stranky --- *}
-      {control menu templateType=>'mapa'}
-      {* --- Info o stranke --- *}
-      <p>
-        <span n:if="FALSE">Admin: {$user_admin->meno} {$user_admin->priezvisko|upper} ({$user_admin->email|uprav_email})</span>
-        <span n:if="$user_spravca !== FALSE && $user_admin->id != $user_spravca->id">
-          {$udaje['spravca']}: {$user_spravca->meno} {$user_spravca->priezvisko|upper}
-          ({$user_spravca->email|uprav_email})
-        </span>
-        <span>&copy; {$udaje['copy']} 2011 - {date('Y')}</span>
-        <span>{$udaje['last_update']} {$verzia->modified|date:'j.n.Y'}</span>
-        <br>
-        <a href="http://nette.org/cs/" class="logo-nette" title="Nette Framework - populárny nástroj pre vytváranie webových aplikácií v PHP.">
-          <img src="{$basePath}/www/images/nette-powered1.gif" alt="nette powered">
-        </a>
-        <br>
-        <span class="vstup-admin" n:if="$view_log_in_link_in_header < 0 && !$user->isLoggedIn()">
-          {var $txt_vstup = 'Prihlásenie pre administráciu webu'}
-          <a n:href="User:default#prihlas" title="{$txt_vstup}">{$txt_vstup}</a>
-        </span>
-      </p>
-    </footer>
-    <div id="pataObr"> </div>
+      <section id="pageContent">
+        {include #content}
+      </section>
+      {* ----- Spodok stranky - FOOTER ----- *}
+      <footer n:snippet=footer>
+        {* --- Mapa stranky --- *}
+        {control menu templateType=>'fixed', templateFile=>'LesyPP_footer_Sidemap', cast=>1, article_avatar_view_in =>0}
+        {* --- Info o stranke --- *}
+        <div class="row border-t">
+          <div id="logoFSC" class="col-xs-5">
+            <img src="{$basePath}/www/images/fsc-logo.png" title="Logo FSC" alt="Logo FSC">
+            <p class="text-center clearfix small">Značka zodpovedného obhospodarovania lesov</p>
+          </div>
+          <div id="contact" class="col-xs-7">
+            <h4 class="text-left">Mestské lesy Poprad, 2017</h4>
+            <ul class="list-group text-left">
+              <li class="list-unstyled"><span class="glyphicon glyphicon-home"></span> Levočská 3312/37, Poprad, 058 01</li>
+              <li class="list-unstyled"><span class="glyphicon glyphicon-phone-alt"></span> 052 772 41 60</li>
+              <li class="list-unstyled"><span class="glyphicon glyphicon-folder-open"></span> lesypp@stonline.sk</li>
+            </ul>
+           </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="nav footer-info">
+              <li n:if="$user_spravca !== FALSE && $user_admin->id != $user_spravca->id">
+                {$udaje['spravca']}: {$user_spravca->meno} {$user_spravca->priezvisko|upper}
+                ({$user_spravca->email|uprav_email})
+              </li>
+              <li>&copy; {$udaje['copy']} 2011 - {date('Y')}</li>
+              <li>
+                <a href="http://nette.org/cs/" class="logo-nette" title="Nette Framework - populárny nástroj pre vytváranie webových aplikácií v PHP.">
+                  <img src="{$basePath}/www/images/nette-powered1.gif" alt="nette powered">
+                </a>
+              </li>
+              <li>{$udaje['last_update']} {$verzia->modified|date:'j.n.Y'}</li>
+              <li>created by <a href="http://anigraph.eu" title="anigraph.eu" target="_new">anigraph</a></li>
+            </ul>
+          </div>  
+          <div class="col-xs-12">
+            <span class="vstup-admin" n:if="$view_log_in_link_in_header < 0 && !$user->isLoggedIn()">
+              {var $txt_vstup = 'Prihlásenie pre administráciu webu'}
+              <a n:href="User:default#prihlas" title="{$txt_vstup}">{$txt_vstup}</a>
+            </span>
+            {control userLangMenu}
+          </div>
+        </div>
+      </footer>
+    </div>
   </div>
 
   {control jsAfter}

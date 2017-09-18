@@ -6,13 +6,13 @@ use Nette;
 /**
  * Model starajuci sa o tabulku hlavne_menu_lang
  * 
- * Posledna zmena 06.06.2017
+ * Posledna zmena 23.06.2017
  * 
  * @author     Ing. Peter VOJTECH ml. <petak23@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version    1.0.5
+ * @version    1.0.6
  */
 class Hlavne_menu_lang extends Table {
   /** @var string */
@@ -88,9 +88,9 @@ class Hlavne_menu_lang extends Table {
   public function ulozPolozku($values, $jazyky, $id = 0) {
     $ulozenie = 0;
     foreach($jazyky as $j){
-      foreach(["nazov", "h1part2", "description"] as $f){
+      foreach(["menu_name", "h1part2", "view_name"] as $f){
         $new = $values->{$j->skratka."_".$f};
-        $ut[$f] = $new;
+        $ut[$f] = strlen($new) ? $new : NULL;
       }
       $hlid = $values->{$j->skratka."_id"};
       if ($hlid == 0)  { //pridavam

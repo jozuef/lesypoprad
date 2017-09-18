@@ -31,3 +31,13 @@ parameters:
       jedinecna: TRUE
       fa_ikonka: 'id-card-o'
       parametre: NULL
+    zobrazKartyPodclankov:
+      nazov: 'Zobrazenie podčlánokv na kartách'
+      jedinecna: FALSE
+      fa_ikonka: 'columns'
+      parametre: NULL
+    kontakt:
+      nazov: 'Kontaktný formulár'
+      fa_ikonka: 'comments'
+      jedinecna: TRUE
+      parametre: NULL

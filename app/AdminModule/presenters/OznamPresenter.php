@@ -2,14 +2,14 @@
 namespace App\AdminModule\Presenters;
 
 use Nette\Forms\Container;
-//use Nette\Application\UI\Multiplier;
+use Nette\Application\UI\Multiplier;
 use DbTable;
 use PeterVojtech;
 
 /**
  * Prezenter pre spravu oznamov.
  * 
- * Posledna zmena(last change): 19.05.2017
+ * Posledna zmena(last change): 21.06.2017
  *
  * Modul: ADMIN
  *
@@ -17,7 +17,7 @@ use PeterVojtech;
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version 1.1.5
+ * @version 1.1.6
  */
 
 Container::extensionMethod('addDatePicker', function (Container $container, $name, $label = NULL) {
@@ -40,6 +40,8 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
   // -- Formulare
   /** @var Forms\Oznam\EditOznamFormFactory @inject*/
 	public $editOznamForm;
+  /** @var \App\AdminModule\Components\Oznam\TitleOznam\EditTitleImageFormFactory @inject*/
+  public $editTitleImageFormFactory;
   
 	/** @var boolean|FALSE */
 	private $oznam_usporiadanie = FALSE;
@@ -67,13 +69,12 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
 	public function actionAdd() {
     $this["oznamEditForm"]->setDefaults([ //Nastav vychodzie hodnoty
       'id'							=> 0,
-      'id_user_profiles'=> $this->getUser()->getId(),
-      'id_user_roles'	=> 0,
+      'id_user_main'    => $this->getUser()->getId(),
+      'id_user_roles'   => 0,
       'id_ikonka'				=> 0,
       'datum_platnosti'	=> StrFTime("%Y-%m-%d", Time()),
       'datum_zadania'   => StrFTime("%Y-%m-%d %H:%M:%S", Time()),
-      'potvrdenie'			=> 0,  
-      'posli_news'			=> 0,
+      'potvrdenie'			=> 0,
     ]);
     $this->setView('edit');
     $this->template->h2 = 'Pridanie oznamu';
@@ -89,7 +90,6 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
       $this["oznamEditForm"]->setDefaults($oznam);
       $this["oznamEditForm"]->setDefaults([ //Nastav vychodzie hodnoty
         'datum_zadania'   => StrFTime("%Y-%m-%d %H:%M:%S", Time()),
-        'posli_news'			=> 0,
       ]);
       $this->template->h2 = sprintf('Editácia oznamu: %s', $oznam->nazov);
     }
@@ -109,9 +109,7 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
     $form = $this->editOznamForm->create($this->udaje_webu['oznam_ucast'], $this->template->oznam_title_image_en, $this->nazov_stranky); 
     $form['uloz']->onClick[] = function ($button) { 
       $form_val = $button->getForm();
-      if (!count($form_val->errors) && $form_val->getValues()->posli_news) { $this->_sendOznamyEmail($form_val->getValues()->id);}
       $this->flashOut(!count($form_val->errors), 'Oznam:', 'Oznam bol uložený!', 'Došlo k chybe a oznam sa neuložil. Skúste neskôr znovu...');
-      
 		};
     $form['cancel']->onClick[] = function () {
 			$this->redirect('Oznam:');
@@ -124,10 +122,10 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
    */
 	protected function _sendOznamyEmail($id) {
     $values = $this->oznam->find($id);
-    $params = [ "site_name" => $this->nazov_stranky,
-                "nazov" 		=> $values->nazov,
-                "text"      => $values->text,
-                "odkaz" 		=> $this->link("//:Front:Oznam:default"),
+    $params = [ "site_name"   => $this->nazov_stranky,
+                "nazov"       => $values->nazov,
+                "text"        => $values->text,
+                "odkaz"       => $this->link("//:Front:Oznam:default"),
                 "datum_platnosti" => $values->datum_platnosti,
                 "oznam_ucast" => $this->user->isAllowed('Admin:Oznam', 'ucast') && $this->udaje->getKluc("oznam_ucast") && $values->potvrdenie,
                 "oznam_id"    => $values->id,
@@ -160,6 +158,17 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
     return $title;
   }
   
+  /** Komponenta pre tvorbu titulku oznamov.
+   * @return \App\AdminModule\Components\Oznam\TitleOznam */
+  public function createComponentTitleImage() {
+    $servise = $this;
+		return new Multiplier(function ($id) use ($servise) {
+			$odkaz = New \App\AdminModule\Components\Oznam\TitleOznam\EditTitleImageFormFactory($this->oznam);
+      $odkaz->create($servise->avatar_path, $servise->wwwDir);
+			return $odkaz;
+		});
+  }
+  
   /** Funkcia pre spracovanie signálu vymazavania
 	  * @param int $id Id oznamu */
 	function confirmedDelete($id)	{
@@ -176,7 +185,8 @@ class OznamPresenter extends \App\AdminModule\Presenters\BasePresenter {
     $servise = $this;
     $template = parent::createTemplate($class);
     $template->addFilter('vlastnik', function ($id_user_profiles = 0, $action = 'edit') use($servise) {
-      $user = $servise->user;// Vrati true ak: si prihlaseny && si admin || (mas opravnenie a si valstnik)
+      $user = $servise->user;
+      // Vrati true ak: si prihlaseny && si admin || (mas opravnenie a si valstnik)
       $out = $user->isLoggedIn() ? ($user->isInRole('admin') ? TRUE : 
                                           ($user->isAllowed($servise->name , $action) ? ($id_user_profiles ? $user->getIdentity()->id == $id_user_profiles : FALSE) : FALSE)) : FALSE;
       return $out;

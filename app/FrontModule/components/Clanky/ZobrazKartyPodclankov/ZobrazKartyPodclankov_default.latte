@@ -1,0 +1,54 @@
+<section id="trails" class="margin-h">
+  <div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist" n:inner-foreach="$articles as $art" id="tabsTrails">
+      <li role="presentation" n:class="($kotva != '' ? $art->hlavne_menu->spec_nazov == $kotva : $iterator->first) ? active">
+        <a href="#{$art->hlavne_menu->spec_nazov}" data-toggle="tab" role="tab" aria-controls="tab{$iterator->counter}">
+          {$art->menu_name}
+        </a>
+      </li>
+    </ul>
+    <div id="tabContent1" class="tab-content" n:inner-foreach="$articles as $art">
+      <div role="tabpanel" n:class="($kotva != '' ? $art->hlavne_menu->spec_nazov == $kotva : $iterator->first) ? 'tab-pane fade in active' : 'tab-pane fade in'" id="{$art->hlavne_menu->spec_nazov}">
+        <h3>{$art->view_name}</h3>
+        {$art->clanok_lang->text|noescape}
+        {var $prilohy = $dokumenty->findBy(['id_hlavne_menu'=>$art->id_hlavne_menu])}
+        <div class="row" n:if="count($prilohy)" n:inner-foreach="$prilohy as $p">
+          <div class="col-sm-4">
+            <div class="thumbnail">
+              <img class="jslghtbx-thmb" src="{$basePath}/{$p->thumb}" alt="{$p->nazov}" data-jslghtbx="{$basePath}/{$p->subor}" class="noajax" data-ajax="false" data-jslghtbx-group="mygroup1">
+              <div class="caption">
+                <p>{$p->nazov}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+              
+<script>
+  $('#tabsTrails a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  });
+  
+  /* Riesenie nefunkcnosti map na taboch: 
+   * https://stackoverflow.com/questions/27238387/multiple-google-maps-within-bootstrap-tabs */
+  // Pre zobrazenie mapky pri zmene tabov
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    var that=$($(e.target).attr('href')).find('.map');
+    if(that.find('span.fa')){ that.find('span.fa').remove();}
+    if(!that.find('iframe').length){ 
+      that.append($('<iframe/>',{ src:that.data('map') }).css({ height:'100%',width:'100%',border:'none' }) 
+                 );
+    }
+  });
+  // Pre zobrazenie mapky pri nacitani stranky
+  var first_active = $('.tab-content').find('.active').find('.map');
+  if(first_active.find('span.fa')){ first_active.find('span.fa').remove();}
+  if(!first_active.find('iframe').length){ 
+    first_active.append($('<iframe/>',{ src:first_active.data('map') }).css({ height:'100%',width:'100%',border:'none' }) 
+               );
+  }
+</script>

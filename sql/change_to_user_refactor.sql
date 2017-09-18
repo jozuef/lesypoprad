@@ -8,7 +8,6 @@ CREATE TABLE `user_main` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '[A]Index',
   `id_user_roles` int(11) NOT NULL DEFAULT '0' COMMENT 'Úroveň registrácie a rola',
   `id_user_profiles` int(11) DEFAULT NULL COMMENT 'Užívateľský profil',
-  `username` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'Užívateľské meno',
   `password` varchar(255) COLLATE utf8_bin NOT NULL COMMENT 'Heslo',
   `meno` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'Meno',
   `priezvisko` varchar(50) COLLATE utf8_bin NOT NULL COMMENT 'Priezvisko',
@@ -24,7 +23,6 @@ CREATE TABLE `user_main` (
   `created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT 'Vytvorenie užívateľa',
   `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Posledná zmena',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`),
   KEY `id_registracia` (`id_user_roles`),
   KEY `id_user_profiles` (`id_user_profiles`),
@@ -32,10 +30,10 @@ CREATE TABLE `user_main` (
   CONSTRAINT `user_main_ibfk_3` FOREIGN KEY (`id_user_roles`) REFERENCES `user_roles` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hlavné údaje užívateľa';
 
-INSERT INTO `user_main` (`id`, `id_user_roles`, `id_user_profiles`, `username`, `password`, `meno`, `priezvisko`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `created`, `modified`) VALUES
-(1,	5,	1,	'petov',	'$2y$10$RnzAjUCyc/B1GgiJ9k43/e27BDz5j1vsbN.DYlfnXIxweBvqxkABq',	'Peter',	'Vojtech',	'petak23@gmail.com',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'::1',	'2017-05-15 09:11:19',	'2017-05-15 10:43:01'),
-(2,	4,	2,	'robo',	'$2y$10$xHr8SFTodJJUqNL3SIz52uATlRdRXA2zMelzkknjWpzWTRGOQuk26',	'Róbert',	'Dula',	'lesypp@stonline.sk',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2017-05-15 09:13:38',	'2017-05-15 08:10:58'),
-(3,	4,	3,	'jozue',	'$2y$10$VOeK4y3ozjaUM1aMtiVmcuHRmtcmoVvC6J4yFX4j0LZoNbXlejyMi',	'Jozef',	'Petrenčík',	'jozue@anigraph.eu',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2017-05-15 09:12:22',	'2017-05-15 08:10:58');
+INSERT INTO `user_main` (`id`, `id_user_roles`, `id_user_profiles`, `password`, `meno`, `priezvisko`, `email`, `activated`, `banned`, `ban_reason`, `new_password_key`, `new_password_requested`, `new_email`, `new_email_key`, `last_ip`, `created`, `modified`) VALUES
+(1,	5,	1,	'$2y$10$RnzAjUCyc/B1GgiJ9k43/e27BDz5j1vsbN.DYlfnXIxweBvqxkABq',	'Peter',	'Vojtech',	'petak23@gmail.com',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	'::1',	'2017-05-15 09:11:19',	'2017-05-15 10:43:01'),
+(2,	4,	2,	'$2y$10$xHr8SFTodJJUqNL3SIz52uATlRdRXA2zMelzkknjWpzWTRGOQuk26',	'Róbert',	'Dula',	'lesypp@stonline.sk',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2017-05-15 09:13:38',	'2017-05-15 08:10:58'),
+(3,	4,	3,	'$2y$10$VOeK4y3ozjaUM1aMtiVmcuHRmtcmoVvC6J4yFX4j0LZoNbXlejyMi',	'Jozef',	'Petrenčík',	'jozue@anigraph.eu',	1,	0,	NULL,	NULL,	NULL,	NULL,	NULL,	NULL,	'2017-05-15 09:12:22',	'2017-05-15 08:10:58');
 
 DROP TABLE IF EXISTS `user_profiles`;
 CREATE TABLE `user_profiles` (
@@ -51,10 +49,10 @@ CREATE TABLE `user_profiles` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
-INSERT INTO `user_profiles` (`id`, `rok`, `telefon`, `poznamka`, `pocet_pr`, `pohl`, `prihlas_teraz`, `avatar_25`, `avatar_75`, `news`) VALUES
-(1,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	NULL,	'A'),
-(2,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	NULL,	'A'),
-(3,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	NULL,	'A');
+INSERT INTO `user_profiles` (`id`, `rok`, `telefon`, `poznamka`, `pocet_pr`, `pohl`, `prihlas_teraz`, `avatar`, `news`) VALUES
+(1,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	'A'),
+(2,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	'A'),
+(3,	NULL,	NULL,	NULL,	0,	'M',	NULL,	NULL,	'A');
 
 DROP TABLE IF EXISTS `user_roles`;
 CREATE TABLE `user_roles` (
@@ -260,10 +258,34 @@ CHANGE `povol_pridanie` `id_hlavne_menu_opravnenie` int(11) NOT NULL DEFAULT '0'
 ADD FOREIGN KEY (`id_hlavne_menu_opravnenie`) REFERENCES `hlavne_menu_opravnenie` (`id`),
 COMMENT='Položky hlavného menu';
 
-ALTER TABLE `user_main`
-DROP `username`;
-
 UPDATE `admin_menu` SET `nazov` = 'Editácia užívateľov' WHERE `id` = '4';
+
+ALTER TABLE `oznam`
+ADD `oznam_kluc` varchar(10) COLLATE 'utf8_general_ci' NULL COMMENT 'Kľúč pre potvrdenie účasti',
+ADD `title_image` varchar(200) COLLATE 'utf8_general_ci' NULL COMMENT 'Názov titulného obrázku' AFTER `oznam_kluc`,
+ADD `title_image_url` varchar(200) COLLATE 'utf8_general_ci' NULL COMMENT 'Odkaz titulného obrázka' AFTER `title_image`,
+ADD `title_fa_class` varchar(20) COLLATE 'utf8_general_ci' NULL COMMENT 'Názov ikonky pre font awesome' AFTER `title_image`,
+CHANGE `id_ikonka` `id_ikonka` int(11) NULL COMMENT 'Id použitej ikonky' AFTER `id_user_roles`,
+COMMENT='Oznamy';
+
+UPDATE `oznam` SET
+`id` = '5',
+`id_user_main` = '1',
+`id_user_roles` = '0',
+`id_ikonka` = NULL,
+`datum_platnosti` = '2017-06-21',
+`datum_zadania` = '2017-06-21',
+`nazov` = 'Súťaž - Objav Mestské lesy Poprad',
+`text` = '<p class=\"card-block text-justify\"> Objav prírodné prostredie mestských lesov, krásu a rozmanitosť prírody a histórie. Zaznamenaj rôznou formou zaujímavosti územia, pomôž k vytvoreniu nových poznatkov o území a vyhraj zaujímavé ceny... </p>\r\n<p>\r\n	{end}</p>\r\n<p class=\"card-block text-justify\"> Súťaž je určená žiakom škôl na území mesta Poprad a jeho občanov, ktorí sa do súťaže zaregistrujú na stránke sutaz.lesypoprad.sk. Súťaž potrvá v období od od 7.4. - do 30. 9 2017. Súťaže sa môžu zúčastniť aj tímy žiakov z rovnakej školy, ktorí sa do súťaže prihlásia spoločne. Web súťaže: \r\n          </p>\r\n          <strong><a href=\"http://sutaz.lesypoprad.sk\" target=\"new\">sutaz.lesypoprad.sk</a></strong>\r\n',
+`oznam_kluc` = 'ltqdqvhjno',
+`title_image` = 'snezienka.jpg',
+`title_fa_class` = NULL,
+`title_image_url` = 'http://sutaz.lesypoprad.sk/'
+WHERE `id` = '5';
+
+ALTER TABLE `hlavne_menu_lang`
+CHANGE `nazov` `menu_name` varchar(100) COLLATE 'utf8_bin' NULL COMMENT 'Názov položky v hlavnom menu pre daný jazyk' AFTER `id_clanok_lang`,
+CHANGE `description` `view_name` varchar(255) COLLATE 'utf8_bin' NULL COMMENT 'Zobrazený názov položky pre daný jazyk' AFTER `h1part2`;
 -- ---------------------------------------------------------------------------------------------------------------------------------------
 -- DROP TABLE IF EXISTS `debata`;
 -- CREATE TABLE `debata` (

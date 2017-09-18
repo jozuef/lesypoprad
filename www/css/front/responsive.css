@@ -1,0 +1,215 @@
+@charset "utf-8";
+@media (min-width: 1441px)
+{
+.parallax_layer 
+  {  background-position: left top;}
+  .parallax_layer_0 
+  {  background-image: url(../images/bg-tatry-hi.png);}
+  .parallax_layer_1 
+  {  background-image: url(../images/bg-les2-hi.png);}
+  .parallax_layer_2 
+  {  background-image: url(../images/bg-les1-hi.png);}
+}
+@media (max-width: 1199px)
+{
+  #topmenu ul li
+	{	font-size: 110%; }
+}
+@media (max-width: 960px)
+{
+  header h1
+  { font-size: 300%; }
+  footer .col-sm-offset-4 
+  {  margin-left: 20%;  }
+  footer #logoFSC
+  {  }
+    footer .small
+  {  
+    line-height: 90%;
+    font-size: 80%;
+  }
+  .text-box
+  { padding: 3em 1em; }
+  .text-box h3
+  { font-size: 160%; }
+  #topmenu ul li
+	{	font-size: 100%; }
+   #navContent
+  {  
+  width: 100%;
+  }
+  #logoMl
+  {
+    margin: 10em 0 0 0;
+  }
+	#contact1
+{
+	padding: 2% 5%;
+	border-left: none;
+	border-top: 1px dotted #fff;
+}
+}
+@media (max-width: 800px) and (min-width: 720px)
+{
+  #topmenu ul li
+	{
+		padding: 0 .2em;
+	}
+}
+@media (max-width: 719px)
+{
+  h2
+  { font-size: 180%; }
+  .webPart h3
+  { font-size: 150%; }
+  #googleMaps .leftrow, #googleMaps .rightrow
+  { 
+    height: 300px;
+    display: block; 
+    margin-bottom: 1em;
+  }
+  #googleMaps .leftrow .text-box 
+  { text-align: left;  }
+  .text-box
+  { 
+    padding: 0 1em; 
+    height: 80px 
+  }
+  .text-box h3
+  { font-size: 150%; }
+	.gallery .flex
+{
+  display: block;
+}
+  #map1, #map2
+  { height: 200px; }
+  #topmenu
+	{
+		padding: 5px;
+  height: auto;
+	}
+  #topmenu ul li
+	{
+		padding: .5em;
+    width: 90%;
+    text-align: left;
+    border: none; border-top: dotted 1px #458CA8;
+	}
+  #topmenu ul.dropdown-menu
+	{
+    width: 90%;
+    background: none;
+    box-shadow: none;
+	}
+  #topmenu ul.dropdown-menu li, #topmenu ul.dropdown-menu li:hover
+	{ border: none; border-bottom: dotted 1px #222;	}
+  #topmenu ul.dropdown-menu li a
+	{ color: #222; }
+  #topmenu ul.dropdown-menu li a:hover
+	{ color: #000; }
+  #topmenu button
+	{
+		display: block;
+    font-size: 120%;
+    margin: 0 .5ex; padding: 2px 6px 0px;
+    color: #1D556C;
+    background: none;
+    border: 2px solid #1D556C;
+    border-radius: .5ex
+	}
+  #navContent
+  { width: 100%; }
+}
+@media (max-width: 639px)
+{
+  header h1
+  { font-size: 240%; }
+  #parts
+  { display: block; }
+  #parts .webPart
+  { 
+    width: 100%;
+    border: none;
+    border-top: 1px solid #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: .5em;
+  }
+  .webPart h3
+  { text-align: left; }
+  .webPart .box
+  { padding: 1em; }
+  .webPart img
+  { height: 96px; }
+  #logoMl img
+  { height: 72px; }
+  #news h3
+  { font-size: 120%; }
+}
+@media (max-width: 480px)
+{
+  header h1
+  { 
+    font-size: 220%; 
+    text-align: left;
+    line-height: 110%;
+    margin: 0;
+  }
+  h2
+  { font-size: 150%; }
+  .parallax_layer
+  { top: 220px; }
+  .parallax_cover
+  { top: 400px; }
+  .webPart img
+  { height: 72px; }
+  .webPart h3, #news h3
+  { font-size: 110%; }
+  .webPart p
+  { font-size: 90%; }
+  .webPart .box
+  { padding: .4em; }
+  .text-box h3
+  { font-size: 120%; }
+  #contact h4
+  { font-size: 100%; }
+  #contact ul
+  { font-size: 90%; }
+  #logoMl 
+  { margin: 7em 2em 0 4em;}
+  #logoMl img
+  { 
+    height: 64px;
+    margin-right: .5em;
+  }
+  #news h3
+  { font-size: 110%; }
+  #news div
+  { width: 100%; padding: .5em }
+  #news .leftrow, #news .rightrow
+  { 
+    display: block;
+  }
+	#contact-form form div, #contact-form form label, #contact-form form input, #contact-form form textarea
+	{		display: block;	}
+	#contact-form form label, #contact-form form input, #contact-form form textarea
+	{		width: 100%;	}
+	#contact-form form label
+	{		text-align: left;	}
+  .text-info
+  { font-size: 100%; }
+}
+@media (max-width: 320px)
+{
+  header h1
+  { font-size: 150%; }
+	#contact-form form input, #contact-form form textarea
+{
+	display: block;
+}
+}
+@media (min-width: 481px)
+{
+  
+}

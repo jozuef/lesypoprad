@@ -1,5 +1,5 @@
-<div class="user-panel" n:snippet="userLangMenu" n:if="count($menu_user)">
-	<ul  n:inner-foreach="$menu_user as $mu">
+<div n:snippet="userLangMenu" n:if="count($menu_user)" class="user-lang-menu">
+	<ul  n:inner-foreach="$menu_user as $mu" class="nav text-center">
 		<li>
 			<a href="{ifset $mu->abs_link}{$mu->abs_link}{else}{if is_array($mu->odkaz)}{plink $mu->odkaz[0], $mu->odkaz[1]['meno']=>$mu->odkaz[1]['obsah']}{else}{plink $mu->odkaz}{/if}{/ifset}" 
          title="{$mu->title}" 
@@ -9,6 +9,6 @@
         <strong n:if="isset($mu->ikonka)" class="fa fa-{$mu->ikonka}"></strong> {$mu->nazov|noescape}
       </a>
 		</li>
-		{sep}<li class="separator"></li>{/sep}
+		{*sep}<li class="separator"></li>{/sep*}
 	</ul>
 </div>

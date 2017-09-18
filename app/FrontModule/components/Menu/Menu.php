@@ -154,6 +154,7 @@ class Menu extends Nette\Application\UI\Control {
 class MenuNode extends \Nette\Object {
 	var $name;
 	var $tooltip;
+  var $view_name;
 	var $avatar;
 	var $anotacia;
   var $node_class;

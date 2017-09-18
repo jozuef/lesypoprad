@@ -10,7 +10,7 @@ use DbTable;
 /**
  * Zakladny presenter pre presentery obsluhujuce polozky hlavneho menu v module ADMIN
  * 
- * Posledna zmena(last change): 05.06.2017
+ * Posledna zmena(last change): 23.06.2017
  *
  * Modul: ADMIN
  *
@@ -18,7 +18,7 @@ use DbTable;
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version 1.2.8
+ * @version 1.2.9
  */
 
 Container::extensionMethod('addDatePicker', function (Container $container, $name, $label = NULL) {
@@ -179,11 +179,11 @@ abstract class ArticlePresenter extends BasePresenter {
         $la = $j->lang->skratka."_";
         $vychodzie_pre_form = [
           $la.'id'=>$j->id,
-          $la.'nazov'=>$j->nazov,
+          $la.'menu_name'=>$j->menu_name,
           $la.'h1part2'=>$j->h1part2,
-          $la.'description'=>$j->description,
+          $la.'view_name'=>$j->view_name,
         ];
-        $this->form_nazov_modifi = array_merge($this->form_nazov_modifi, [$la=>$j->nazov]);
+        $this->form_nazov_modifi = array_merge($this->form_nazov_modifi, [$la=>$j->menu_name]);
       }
       $this["menuEditForm"]->setDefaults($vychodzie_pre_form);
       $this->template->pridanie = [];
@@ -234,14 +234,14 @@ abstract class ArticlePresenter extends BasePresenter {
 		foreach ($this->jaz as $j) { //Pridanie vychodzich hodnot pre jazyky
       $vychodzie_pre_form = [
         $j->skratka.'_id'=>0,
-        $j->skratka.'_nazov'=>"",
+        $j->skratka.'_menu_name'=>"",
         $j->skratka.'_h1part2'=>"",
-        $j->skratka.'_description'=>"",
+        $j->skratka.'_view_name'=>"",
       ];
     }
     $this["menuEditForm"]->setDefaults($vychodzie_pre_form);
     //-----------------------------------
-    $this->template->h2 = 'Pridanie položky pre: '.$nad_pol->nazov;
+    $this->template->h2 = 'Pridanie položky pre: '.$nad_pol->view_name;
     $this->template->pridanie = $this->jaz;
     $this->setView('krok1');
   }

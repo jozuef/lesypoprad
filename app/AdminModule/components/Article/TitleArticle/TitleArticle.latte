@@ -5,7 +5,7 @@
   </a>
   <a n:if="$admin_links['elink']" href="{plink $clanok->hlavne_menu->druh->presenter.':edit' $clanok->id_hlavne_menu}" title="Zmeň nastavenie článku" class="btn btn-success"><i class="fa fa-pencil"></i>Zmeň nastavenie</a>
   <a n:if="$admin_links['elink'] && isset($clanok->id_clanok_lang)" href="{plink Clanky:edit2 $clanok->id_hlavne_menu}" title="Zmeň text článku" class="btn btn-success"><i class="fa fa-file-text"></i>Zmeň text</a>
-  <a n:if="$admin_links['dlink']" href="{plink confirmForm:confirmDelete! id => $clanok->id_hlavne_menu, druh=>'', nazov=>$clanok->nazov, zdroj_na_zmazanie=>'článok'}" title="Vymazanie článku" class="btn btn-danger" href="#" role="button">
+  <a n:if="$admin_links['dlink']" href="{plink confirmForm:confirmDelete! id => $clanok->id_hlavne_menu, druh=>'', nazov=>$clanok->view_name, zdroj_na_zmazanie=>'článok'}" title="Vymazanie článku" class="btn btn-danger" href="#" role="button">
     <i class="fa fa-trash-o"></i>
   </a>
   <div n:snippet="zmenVlastnika" class="btn-group edit-link-bar" role="group" aria-label="zmen-vlastnika-link">
@@ -33,14 +33,18 @@
     <button n:if="$admin_links['vlastnik']" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModalRegistraciaChange" title="Zmeň úroveň prístupu"><i class="fa fa-pencil"></i></button>
   </div>
   <div n:if="$clanok->hlavne_menu->nazov_ul_sub !== NULL" n:snippet="vzhlad" class="btn-group edit-link-bar" role="group" aria-label="vzhlad-link">
-    <div class="btn btn-success disabled" role="button" title="Vzhľad pre Front modul vzhľad: {$c = isset($clanok->hlavne_menu->nazov_ul_sub) ? $clanok->hlavne_menu->nazov_ul_sub : 'východzí'}">
-      Vzhľad pre Front modul vzhľad: <strong>{$c = isset($clanok->hlavne_menu->nazov_ul_sub) ? $clanok->hlavne_menu->nazov_ul_sub : 'východzí'}</strong></div>
-    <a n:if="FALSE && $admin_links['vlastnik'] && $clanok->hlavne_menu->nazov_ul_sub !== NULL && $user->isAllowed('Admin:Clanky', 'vzhlad')" href="{plink Clanky:vzhlad $clanok->id_hlavne_menu}" class="btn btn-info" role="button" title="Zmeň vzhľad"><i class="fa fa-pencil"></i></a>
+    <div class="btn btn-success disabled" role="button" title="Vzhľad pre Front modul vzhľad: {$c = $clanok->hlavne_menu->nazov_ul_sub ? $clanok->hlavne_menu->nazov_ul_sub : 'východzí'}">
+      Vzhľad pre Front modul vzhľad: <strong>{$c = $clanok->hlavne_menu->nazov_ul_sub ? $clanok->hlavne_menu->nazov_ul_sub : 'východzí'}</strong>
+    </div>
+    <a n:if="FALSE && $admin_links['vlastnik'] && $clanok->hlavne_menu->nazov_ul_sub !== NULL && $admin_links['elink']" href="{plink Clanky:vzhlad $clanok->id_hlavne_menu}" class="btn btn-info" role="button" title="Zmeň vzhľad">
+      <i class="fa fa-pencil"></i>
+    </a>
   </div>
   <div n:snippet="platnost" class="btn-group edit-link-bar" role="group" aria-label="platnost-link">
     {var $cl='primary'}
     {if $clanok->hlavne_menu->datum_platnosti}
-      {if $clanok->hlavne_menu->datum_platnosti < strftime("%Y-%m-%d", time())}{var $datum = 'Článok už nie je platný! Platil do:'}{var $cl='warning'}
+      {if $clanok->hlavne_menu->datum_platnosti < strftime("%Y-%m-%d", time())}
+          {var $datum = 'Článok už nie je platný! Platil do:'.strftime('%d.%m.%Y', strtotime($clanok->hlavne_menu->datum_platnosti))}{var $cl='warning'}
       {else}{var $datum = 'Článok platí do:'.strftime('%d.%m.%Y', strtotime($clanok->hlavne_menu->datum_platnosti))}{/if}
     {else}
       {var $datum = 'Dátum platnosti sa nesleduje.'}
@@ -85,7 +89,9 @@
   </div>
   <div n:snippet="priamyClanok" n:if="isset($nadradeny) && $user->isAllowed('Admin:Clanky', 'priamy')" class="btn-group edit-link-bar" role="group" aria-label="priamy-clanok-link">
     {var $pc = isset($nadradeny->redirect_id) && $clanok->id_hlavne_menu == $nadradeny->redirect_id}
-    <div class="btn btn-{if $pc}warning{else}primary{/if} disabled" title="Položka {if $pc}je{else}nie je{/if} priamy článok!"><i class="fa fa-arrow-circle-down"></i>{if $pc} Priamy článok!{/if} </div>
+    <div class="btn btn-{if $pc}warning{else}primary{/if} disabled" title="Položka {if $pc}je{else}nie je{/if} priamy článok!">
+      <i class="fa fa-arrow-circle-down"></i> {if $pc}Priamy článok!{else}<small>Nie je priamy článok</small>{/if}
+    </div>
     <a n:if="$admin_links['vlastnik']" n:href="priamyClanok!" title="{if $pc}Zruš{else}Nastav{/if} ako priamy článok" class="btn btn-info" role="button">
       <i class="fa fa-{if $pc}close{else}check{/if}"></i>
     </a>
@@ -98,7 +104,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Zmena vlastníka položky: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Zmena vlastníka položky: {$clanok->view_name}</h4>
         <p>Aktuálny vlastník: {$clanok->hlavne_menu->user_main->meno} {$clanok->hlavne_menu->user_main->priezvisko}</p>
       </div>
       <div class="modal-body">
@@ -113,7 +119,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Zmena úrovne prístupu k položke: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Zmena úrovne prístupu k položke: {$clanok->view_name}</h4>
         <p>Aktuálna úroveň: {$clanok->hlavne_menu->user_roles->id} - {$clanok->hlavne_menu->user_roles->name}</p>
       </div>
       <div class="modal-body">
@@ -128,7 +134,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Zmena platnosti položky: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Zmena platnosti položky: {$clanok->view_name}</h4>
         <p>Aktuálna platnosť: {ifset $clanok->hlavne_menu->datum_platnosti}{$clanok->hlavne_menu->datum_platnosti|date:'%d.%m.%Y'}{else}Nesleduje sa.{/ifset}</p>
       </div>
       <div class="modal-body">
@@ -143,7 +149,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Zmena sledovania dĺžky novinky pre položku: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Zmena sledovania dĺžky novinky pre položku: {$clanok->view_name}</h4>
         <p>Aktuálna dĺžka: {$clanok->hlavne_menu->dlzka_novinky->nazov}</p>
       </div>
       <div class="modal-body">
@@ -158,7 +164,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Zmena oprávnenia nevlastníkov pre položku: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Zmena oprávnenia nevlastníkov pre položku: {$clanok->view_name}</h4>
         <p>Aktuálne oprávnenia: {$clanok->hlavne_menu->dlzka_novinky->nazov}</p>
       </div>
       <div class="modal-body">

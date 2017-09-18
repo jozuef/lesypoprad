@@ -46,7 +46,7 @@ webloader:
     front:
       files:
         - %wwwDir%/www/css/font-awesome.css
-        - %wwwDir%/www/css/bootstrap.min.css
+        - %wwwDir%/www/css/bootstrap.css
         - %wwwDir%/www/css/bootstrap-theme.css
         - %wwwDir%/www/css/jquery-ui.css
         - %wwwDir%/www/css/datagrid.css
@@ -63,7 +63,7 @@ webloader:
     admin:
       files:
         - %wwwDir%/www/css/font-awesome.css
-        - %wwwDir%/www/css/bootstrap.min.css
+        - %wwwDir%/www/css/bootstrap.css
         - %wwwDir%/www/css/bootstrap-theme.css
         - %wwwDir%/www/css/jquery-ui.css
         - %wwwDir%/www/css/datagrid.css
@@ -82,13 +82,15 @@ webloader:
     frontBefore:
       files:
         - %wwwDir%/www/js/jquery-1.12.4.js
-        - %wwwDir%/www/js/bootstrap.min.js
+        - %wwwDir%/www/js/bootstrap.js
         - %wwwDir%/www/js/netteForms.min.js
         - %wwwDir%/www/js/nette.ajax.js
         - %wwwDir%/www/js/jquery-ui-1.12.1.min.js #Only datepicker & sortable
         - %wwwDir%/www/js/jquery.ui.datepicker-sk.js
         - %wwwDir%/www/js/datagrid.js
         - %wwwDir%/www/js/js-image-slider.js
+        - %wwwDir%/www/js/forestmap.js
+        - %wwwDir%/www/js/dropmenuJQ.js
         - %wwwDir%/www/js/pomocne_front.js
       filters:
         - @jsMin
@@ -102,7 +104,7 @@ webloader:
     admin:
       files:
         - %wwwDir%/www/js/jquery-1.12.4.js
-        - %wwwDir%/www/js/bootstrap.min.js
+        - %wwwDir%/www/js/bootstrap.js
         - %wwwDir%/www/js/netteForms.min.js
         - %wwwDir%/www/js/nette.ajax.js
         - %wwwDir%/www/js/lightbox.min.js

@@ -2,16 +2,16 @@
  *
  * Modul: FRONT
  *
- * Posledna zmena(last change): 05.05.2017
+ * Posledna zmena(last change): 27.05.2017
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link http://petak23.echo-msz.eu
- * @version 1.0.1
+ * @version 1.0.2
  *
  * @param     
 *}
 {if $user->isAllowed('Front:Faktury', 'add')}
-  <button n:if="$user->isAllowed('Front:Faktury', 'add')" type="button" class="btn btn-info" data-toggle="modal" {if $id_dokument}data-show="true"{/if} data-target="#myModalAddFaktura" title="Pridaj dokument">
+  <button n:if="$user->isAllowed('Front:Faktury', 'add')" type="button" class="btn btn-info" data-toggle="modal" {if $id_dokument}data-show="true"{/if} data-target="#myModalAddFaktura" data-backdrop="" title="Pridaj dokument">
     <i class="fa fa-pencil"></i> Pridaj
   </button>
 {/if}
@@ -19,7 +19,7 @@
 {if $user->isAllowed('Front:Faktury', 'add')}
   {* -- Modal dialog pre zmenu vlastníka -- *}
   {snippet myModalAddFaktura}
-  <div class="modal fade" id="myModalAddFaktura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal fade" id="myModalAddFaktura" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -36,10 +36,11 @@
   {/snippet}
 
   {if $id_dokument}
-    {block spec_js}
-      <script>
-        $('#myModalAddFaktura').modal('show');
-      </script>
-    {/block}
+    <script>
+      $('#myModalAddFaktura').modal({
+          backdrop: ''
+      });
+      $('#myModalAddFaktura').modal('show');
+    </script>
   {/if}
 {/if}

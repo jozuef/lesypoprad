@@ -104,6 +104,21 @@ class User_main extends Table {
     return $out;
   }
   
+  /**
+   * Funkcia na zostavenie ratazca emailov podla urovne registracie pre odoslanie info mailu. 
+   * @param int $id_user_roles Minimalna uroven registracie
+   * @return sring Retazec emailov oddelených ciarkami */
+  public function emailUsersListStr($id_user_roles = 5) {
+    $cl = $this->findBy(['id_user_roles >='.$id_user_roles, 'user_profiles.news'=>'A']);
+    $out = "";
+    $sum = count($cl); $iter = 0;
+    foreach ($cl as $c) {
+      $iter++;
+      $out .= $sum == $iter ? $c->email : $c->email.', '; 
+    }
+    return $out;
+  }
+  
 }
 
 class DuplicateEmailException extends \Exception

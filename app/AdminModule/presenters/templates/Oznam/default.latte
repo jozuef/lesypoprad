@@ -6,7 +6,7 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" n:inner-foreach="$oznamy as $ozn">
   <div class="panel {if $ozn['aktualny']} panel-success{else}panel-default{/if}">
     {var $oznam = $ozn['oznam']}
-    {var $vlastnik = ($oznam->id_user_profiles|vlastnik)}
+    {var $vlastnik = ($oznam->id_user_main|vlastnik)}
     <div class="panel-heading" role="tab" id="heading{$iterator->counter}">
       <h4 class="panel-title">
         <span class="text-right oznam-head">
@@ -26,8 +26,8 @@
         <div class="page-header edit-link-bar" data-toggle="tooltip" data-placement="bottom">
           
           <div class="btn-group" role="group">
-            <a href="#" class="btn btn-default disabled" role="button">
-              <img n:if="$oznam->ikonka->nazov && $oznam_title_image_en" src="{$basePath}/www/ikonky/64/{$oznam->ikonka->nazov}_64.png" alt="Ikonka" class="oznam-ikonka">
+            <a href="#" class="btn btn-default disabled" role="button" n:if="$oznam->id_ikonka && $oznam_title_image_en">
+              <img src="{$basePath}/www/ikonky/64/{$oznam->ikonka->nazov}_64.png" alt="Ikonka" class="oznam-ikonka">
             </a>
             <a href="#" class="btn btn-primary disabled" role="button">Platí do: <strong>{$oznam->datum_platnosti|date:'j.n.Y'}</strong></a>
             <a href="#" class="btn btn-primary disabled" role="button">Posledná zmena: {$oznam->datum_zadania|date:'j.n.Y'}</a>
@@ -44,7 +44,7 @@
           {*<img n:if="isset($oznam->ikonka->nazov) && !$oznam_title_image_en" src="{$basePath}/www/ikonky/128/{$oznam->ikonka->nazov}128.png" alt="Ikonka" class="oznam-ikonka">*}
           
           <div>{$oznam->text|noescape}</div>
-          <span class="meno">{$oznam->user_profiles->meno} {$oznam->user_profiles->priezvisko}</span>
+          <span class="meno">{$oznam->user_main->meno} {$oznam->user_main->priezvisko}</span>
           <div class="row">
             <div n:if="$allow_ucast && $oznam->potvrdenie" class="col-xs-12 col-md-6">
               {control potvrdUcast-$oznam->id}

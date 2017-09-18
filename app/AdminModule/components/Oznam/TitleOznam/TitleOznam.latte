@@ -18,6 +18,12 @@
       Nastav na <i class="fa fa-sort-numeric-{$c = $por_oznamy ? 'desc': 'asc'}"></i>
     </a>
   </div>
+  <div n:if="$user->isInRole('admin')" class="btn-group edit-link-bar">
+    <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-cogs fa-fw"></i> Nastavenie oznamov <span class="fa fa-caret-down" title="Toggle dropdown menu"></span></a>
+    <ul class="dropdown-menu" n:inner-foreach="$oznamy_nastav as $o">
+      <li><a href="#{$o->id}"><i class="fa fa-pencil fa-fw"></i> {$o->nazov}</a></li>
+    </ul>
+  </div>
 </div>
 
 {* -- Modal dialog pre zmenu presmerovania -- *}

@@ -7,7 +7,7 @@ use PeterVojtech;
 /**
  * Prezenter pre spravu clankov.
  * 
- * Posledna zmena(last change): 05.06.2017
+ * Posledna zmena(last change): 23.06.2017
  *
  *	Modul: ADMIN
  *
@@ -15,7 +15,7 @@ use PeterVojtech;
  * @copyright Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link http://petak23.echo-msz.eu
- * @version 1.2.6
+ * @version 1.2.7
  */
 
 class ClankyPresenter extends ArticlePresenter {
@@ -36,7 +36,7 @@ class ClankyPresenter extends ArticlePresenter {
   protected function startup() {
     parent::startup();
     $this->template->bezp_kod	= '4RanoS5689q6-498'; //Bezp. kod pre CKEditor$
-    $this->template->CKtoolbar= ($this->user->isInRole('admin')) ? "AdminToolbar" : "UserToolbar";
+    $this->template->CKtoolbar= "AdminToolbar"; //($this->user->isInRole('admin')) ? "AdminToolbar" : "UserToolbar";
     $this->template->jazyky = $this->lang->findAll();
   }
   
@@ -125,7 +125,7 @@ class ClankyPresenter extends ArticlePresenter {
   
   /** Render pre 2. krok editacie clanku. */
   public function renderKrok2() {
-		$this->template->h2 = $this->nadpis_h2.$this->zobraz_clanok->nazov;
+		$this->template->h2 = $this->nadpis_h2.$this->zobraz_clanok->view_name;
 	}
   
 	
@@ -177,7 +177,7 @@ class ClankyPresenter extends ArticlePresenter {
   /** Odoslanie info e-mailu */
 	public function _sendClankyEmail() {
     $params = [ "site_name" => $this->nazov_stranky,
-                "nazov" 		=> $this->zobraz_clanok->nazov,
+                "nazov" 		=> $this->zobraz_clanok->view_name,
                 "odkaz" 		=> $this->link(":Front:Clanky:default", $this->zobraz_clanok->id_hlavne_menu),
                 "datum_platnosti" => $this->zobraz_clanok->hlavne_menu->datum_platnosti,
               ];

@@ -1,0 +1,523 @@
+@charset "utf-8";
+body
+{  
+  background: url(../images/bg-obloha.jpg) top left repeat-x fixed rgba(229,247,255,1.00);
+  font-family: 'Roboto', sans-serif;
+  margin: 0; padding: 0;
+  min-width: 320px;
+}
+h1
+{
+  text-transform: uppercase; text-align: center;
+  font-weight: 700;
+  color: #3D8AAB;
+}
+h2, h3, h4
+{
+  text-transform: uppercase;
+  font-weight: 700;
+}
+a
+{
+  color: #9FF39E;
+}
+a:hover
+{ color: #074D4B;}
+.paralax-bg
+{
+  background-repeat: no-repeat;
+	background-position: top center;
+	background-size: cover;
+	background-attachment: fixed;
+}
+.text-info
+{
+  color: #fff;
+  font-size: 140%;  font-style: italic; font-weight: 100;
+  text-indent: 1em; 
+}
+.border-b
+{
+  padding-bottom: 1em;
+  border-bottom: 1px solid rgba(255,255,255,0.50);
+  margin-bottom: 2em
+}
+.border-t
+{
+  padding-top: 2em;
+  border-top: 2px solid rgba(255,255,255,0.50); 
+}
+.card
+{
+  display: table-cell;
+  vertical-align: middle;
+}
+.leftrow, .rightrow, .row
+{
+  width: 80%; max-width: 1280px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.leftrow
+{
+  display: flex;
+  flex-direction: row;
+}
+.rightrow
+{
+  display: flex;
+  flex-direction: row-reverse;
+}
+.no-border
+{  border: none; }
+.margin-h
+{  margin: 4% 0; }
+.text-box
+{ 
+  background: #074D4B;
+  padding: 5em 3em;
+}
+.text-box small
+{ line-height: 90%; }
+.text
+{ 
+  text-indent: 1em;
+  text-align: justify;
+  padding: .2em 0 1em;
+}
+/*--*/
+
+/* -- hlavicka -- */
+header
+{  
+  margin: 0; padding: 0;
+}
+header h1
+{ 
+  font-size: 400%;
+  line-height: 150%;
+  color: #197748;
+}
+header img
+{ 
+  height: 96px;
+}
+/*--*/
+
+/* -- paticka -- */
+footer
+{ 
+  background: #222;
+  min-height: 200px;
+  text-align: center;
+  padding: 1em 0
+}
+footer p
+{ 
+  color: #999;
+  font-size: 90%;
+}
+footer .nav
+{ 
+  padding: 1em 0;
+  width: auto;
+}
+footer .nav li
+{ 
+  display: inline-block;
+  border-right: 1px solid #777;
+  padding: 2px 7px;
+}
+footer .nav li a
+{ 
+  display: inline-block;
+  padding: 0;
+}
+footer .nav li a:hover
+{ 
+  background: none;
+  color: #eee;
+  border-bottom: #9FF39E solid 1px;
+}
+footer .row
+{ 
+  color: #ccc;
+  margin: 0 auto;
+  width: 90%;
+}
+footer .small
+{
+  width: 100px;
+  margin: 0 0 0 auto; 
+}
+#logoFSC
+{ 
+  border-right: #999 solid 1px;
+  text-align: right;
+  padding: 0 1em;
+}
+#logoFSC img
+{ margin-right: 11px; }
+/*--*/
+
+/*-- google mapy --*/
+
+#googleMaps
+{ 
+  width: 100%;
+  background: #0B6E6D;
+  padding: 2em 0;
+}
+#googleMaps .leftrow, #googleMaps .rightrow
+{ 
+  height: 250px;
+  margin: 1em auto;
+}
+#googleMaps small
+{ 
+  color: #92F4F3; 
+  text-transform: none; 
+}
+#googleMaps h3
+{ color: #fff; }
+#googleMaps .leftrow .text-box
+{ text-align: right; }
+#logoMl
+{
+  clear: both;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 9em 0 10px 0;
+}
+/*--*/
+/*-- oznamy --*/
+#news
+{}
+#news a:hover, #news a:focus
+{
+  color: #fff;
+  text-decoration: none;
+}
+#news img
+{   
+  width: 95%;
+  max-width: 200px;
+}
+#news .leftrow, #news .rightrow
+{ 
+  align-items: center;
+  width: 100%;
+  padding-bottom: 1em;
+  border-top: dotted 1px;
+}
+#news .col-xs-3
+{  text-align: center;}
+#news h3 
+{  
+  padding: 0; 
+  margin: 0;
+  color: #9FF39E;
+}
+#news .card-header h3 
+{  
+  font-weight: 300;
+}
+#news h4 a:hover
+{ font-weight: 700 !important;}
+
+/* -- obsahova cast -- */
+#pageContent
+{
+  width: 100%;
+  margin: 0 auto; padding: 0 0 3em 0;
+  color: #fff;
+}
+#parts 
+{
+  display: flex;
+}
+  #parts .img-responsive
+  {  margin: 0 auto;}
+  #parts h3
+  {  font-weight: 300;}
+.profilvo table 
+{
+  background: #135535;
+  width: 60%;
+}
+.img-left 
+{
+  float: left;
+  margin: 0 1em 0 0;
+}
+.webPart 
+{
+  text-align: center;
+  border-left: solid 2px rgba(255,255,255,.5);
+  padding: 0 3%;
+}
+.webPart:last-child
+{  border-right: solid 2px rgba(255,255,255,.5);}
+.table
+{
+  width: 100%;
+  margin: 0 auto;
+}
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #178852;
+}
+.table caption
+{
+  font-size: 180%;
+  color: #fff;
+  text-transform: uppercase; text-align: center;
+  border-bottom: 1px dotted;
+}
+.table > tbody > tr > th
+{ 
+  border-top: none; border-bottom: 2px solid;
+  font-size: 120%;
+}
+.table td, .table th
+{ border-right: 1px dotted #fff;}
+.table td:last-child, .table th:last-child
+{ border-right: none;}
+/*--*/
+/* -- horne menu -- */
+#topmenu
+{
+	width: 100%;
+  margin: 0 auto; padding: 1.5em 0;
+  border-bottom: 1px solid #095E5D;
+  background: #AFE8FF;
+  font-family: 'Roboto Condensed', sans-serif;
+  text-align: center;
+  position: fixed;
+  z-index: 100;
+}
+#navContent
+{  
+  width: 90%; max-width: 1280px;
+  margin: 0 auto;
+}
+  #topmenu button
+  {  display: none; }
+	#topmenu ul
+	{
+		width: 100%;
+		padding: 0; margin: 0;		
+	}
+	#topmenu ul li
+	{
+		display: block;
+    width: 14.2%;
+		font-size: 120%; font-weight: 600;
+    text-align: center; text-transform: uppercase;
+		margin: 0 0 0 0!important; padding: 0 .5em;
+		border-right: solid 1px;
+	}
+	#topmenu ul li:last-child, #topmenu ul.dropdown-menu li:last-child
+	{	border:none;}
+	#topmenu ul li a
+	{
+		color: #095E5D;
+	}
+	#topmenu ul li a:hover
+	{
+		color: #000;
+		text-decoration: underline;
+	}
+  #topmenu ul li.selected a, #topmenu ul li.in-path a
+  {
+    text-decoration: underline;
+  }
+  #topmenu ul.dropdown-menu
+  {
+    background: #1F5972;
+    width: 140%;
+    margin: 0; padding: .5em;
+    border-top: none;
+    border-bottom: none;
+    border-radius: 0;
+    text-align: center;
+    box-shadow: inset 0 4px 3px rgba(0,0,0,.5);
+    transition: top 1s ease-in-out;
+  }
+#topmenu .dropdown-toggle::after
+{
+  content: '\25be';
+}
+  #topmenu ul.dropdown-menu li
+  {
+    width: auto;
+    text-transform: none;
+    border-bottom: #92F4F3 solid 1px;
+    border-right: none; 
+  }
+  #topmenu ul.dropdown-menu li:hover
+  {
+    border-bottom: #fff solid 1px;
+  }
+  #topmenu .dropdown-menu small
+  {  
+    font-size: 75%;
+    white-space: normal;
+  }
+  #topmenu .dropdown-menu li a
+  {  
+    color: #92F4F3;
+    text-align: left;
+    font-size: 300;
+  }
+  #topmenu .dropdown-menu li a:hover
+  {
+    color: #fff;
+    background: none;
+    text-decoration: none;
+  }
+.img-thumbnail 
+{
+  padding: 0;
+  border: 0px solid #dddddd;
+  border-radius: 0;
+}
+#trails .leftrow, #trails .row
+{
+  width: 100%;
+  align-items: center;
+}
+#trails .wrap
+{
+  padding: 2em;
+}
+#trails .nav a
+{
+  border: none;
+  border-radius: 0;
+  margin: 0;
+}
+#trails .nav a:hover
+{
+  background: #074D4B;
+  border: none;
+  border-radius: 0;
+  color: white;
+}
+#trails .nav .active a
+{
+  background: #199459;
+  border: 2px solid white;
+  border-bottom: none;
+  border-radius: 0;
+  color: white;
+}
+#trails .nav .active a:hover
+{
+  color: white;
+  background: #199459;
+  border-radius: 0;
+}
+#trails h3
+{  font-weight: 100;}
+#contact-form form
+{
+	color: #fff;
+}#contact-form form div
+{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin: 1em 0;
+}
+#contact-form form label
+{
+	display: inline-block;
+	width: 30%;
+	text-align: right;
+	padding-right: 1em;
+}
+#contact-form form input, #contact-form form textarea
+{
+	display: inline-block;
+	width: 60%;
+}
+#contact-form form .button
+{
+	display: inline-block;
+	width: 30%;
+	background: #AFE8FF;
+	border: none;
+}
+#contact1
+{
+	padding-left: 5%;
+	border-left: 1px dotted #fff;
+}
+#contact1 iframe
+{
+	width: 100%;
+}
+.thumbnail
+{
+  background: none;
+  border: none;
+  border-radius: 0;
+}
+.last
+{ border: none; }
+.caption p
+{
+  text-align: center;
+  color: #fff;
+  font-style: italic;
+}
+.thumbnail img
+{ 
+  width: 90%;
+  border: 1px solid #fff;
+  padding: 0;
+}
+.gallery .flex
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.gallery .title-img 
+{
+  width: 90%;
+  margin: 0 auto; padding: 2ex;
+  border-bottom: 1px dotted;
+  /*background: #177A4A;*/
+}
+.gallery .title-img:hover
+{
+  background: #177A4A;
+}
+.gallery .title-img h4
+{
+  text-align: center; text-transform: none;
+  font-weight: 300; margin: 0;
+}
+.gallery .title-img h4 a
+{  color: #fff;}
+.gallery .title-img h4 a:hover
+{  color: #9FF39E;}
+.gallery .thumbnail img
+{
+  border: none;
+}
+.thumbnails .thumbnail
+{
+  max-width: 200px; max-height: 200px;
+  margin: 1ex;
+  display: inline-block;
+}
+.thumbnails .flex
+{  margin: 0; padding: 0;}
+.thumbnails .flex li
+{  list-style: none;}
+
+/*--*/

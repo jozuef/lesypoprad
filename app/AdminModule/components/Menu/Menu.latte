@@ -1,8 +1,10 @@
 {define #link_in}
+  {for $i = 2; $i < $level; $i++}-{/for}
   <div n:if="strlen($nastav['avatar']) && isset($node->avatar) && is_file('www/'.$nastav['avatar'].$node->avatar)" class="avatar-img">
     <img src="{$basePath}/www/{$nastav['avatar']}{$node->avatar}" alt="Titulný obrázok">
   </div>
   {$node->name}
+  <br n:if="isset($node->tooltip)" />
   <small n:if="isset($node->tooltip)">{$node->tooltip}</small>
 {/define}
 

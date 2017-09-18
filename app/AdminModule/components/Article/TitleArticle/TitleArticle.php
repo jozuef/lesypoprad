@@ -7,13 +7,13 @@ use DbTable;
 /**
  * Komponenta pre vytvorenie hlavičky polozky.
  * 
- * Posledna zmena(last change): 01.06.2017
+ * Posledna zmena(last change): 23.06.2017
  *
  * @author Ing. Peter VOJTECH ml. <petak23@gmail.com> 
  * @copyright Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link http://petak23.echo-msz.eu
- * @version 1.0.7
+ * @version 1.0.8
  */
 
 class TitleArticleControl extends Nette\Application\UI\Control {
@@ -132,7 +132,7 @@ class TitleArticleControl extends Nette\Application\UI\Control {
   /** Signal pre nastavenie priameho clanku */
   public function handlePriamyClanok() {
     $this->hlavne_menu_nadradeny->hlavne_menu->update([
-      'redirect_id' => (isset($this->hlavne_menu_nadradeny->hlavne_menu->redirect_id) && $this->clanok->id_hlavne_menu == $this->hlavne_menu_nadradeny->hlavne_menu->redirect_id) ? NULL : $this->clanok->id_hlavne_menu
+      'redirect_id' => ($this->hlavne_menu_nadradeny->hlavne_menu->redirect_id && $this->clanok->id_hlavne_menu == $this->hlavne_menu_nadradeny->hlavne_menu->redirect_id) ? NULL : $this->clanok->id_hlavne_menu
     ]);
     if (!$this->presenter->isAjax()) {
       $this->presenter->redirect('this');

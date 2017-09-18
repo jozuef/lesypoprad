@@ -1,29 +1,33 @@
-<div n:snippet="OznamyAktualne" class="oznamy">
-  <h2 n:inner-block="title">{$texty['h2']}</h2>
+<div n:snippet="OznamyAktualne" class="row border-b">
+  <h3 n:inner-block="title">{$texts->trText('h2')}</h3>
   {if count($oznamy)}
-    <div class="panel panel-primary" n:foreach="$oznamy as $oznam">
-      <div class="panel-heading">
-        <h3 class="panel-title">{var $oi = $oznam->ikonka}
-          {ifset $oi->id}
-            <img n:if="$oi->id > 0" src="{$basePath}/www/ikonky/64/{$oi->nazov}_64.png" alt="Ikonka">
-          {/ifset}  
-          <a name="{$oznam->spec_nazov}"></a>{$oznam->nazov}
-        </h3>
-      </div>
-      <div class="panel-body">
-        <div class="oznam">
-          <a href="#" class="btn btn-primary btn-sm disabled button-right" role="button" n:if="$nastavenie['datum_platnosti']">Platí do: {*$plati_do*}<strong>{$oznam->datum_platnosti|date:'j.n.Y'}</strong></a>
-          <small n:if="$nastavenie['datum_zadania']">{*$zverejnene*}{$oznam->datum_zadania|date:'j.n.Y'}</small>
-          {if $user->isLoggedIn()}
-            {$oznam->text|noescape|textreg:$user->getIdentity()->id_user_roles, 5|koncova_znacka} {*$maxurovregistr*}
-          {else}
-            {$oznam->text|noescape|textreg:0, 5|koncova_znacka} {*$maxurovregistr*}
+    <div class="leftrow border-t" n:foreach="$oznamy as $oznam">
+      <div class="col-xs-3" n:if="$oznam->id_ikonka !== NULL || $oznam->title_image !== NULL || $oznam->title_fa_class !== NULL">
+        <a n:tag-if="$oznam->title_image_url !== NULL" href="{$oznam->title_image_url}" target="new" title="{$oznam->nazov}">
+          {if $oznam->id_ikonka !== NULL}
+            <img src="{$basePath}/www/ikonky/128/{$oznam->ikonka->nazov}_128.png" class="img-responsive img-thumbnail" alt="{$oznam->nazov}">
+          {elseif $oznam->title_image !== NULL}
+            <img src="{$basePath}/www/files/oznamy/{$oznam->title_image}" class="img-responsive img-thumbnail" alt="{$oznam->nazov}">
+          {elseif $oznam->title_fa_class !== NULL}
+            <i class="fa fa-{$oznam->title_fa_class} fa-5x"></i>
           {/if}
-          <div class="meno">{$oznam->user_profiles->meno} {$oznam->user_profiles->priezvisko}</div>
+        </a>
+      </div>
+      <div class="card col-xs-9">
+        <div class="card-header" role="tab" id="head1">
+          <h3>
+            <a class="collapsed" data-toggle="collapse" data-parent="#news" href="#text1" aria-expanded="false" aria-controls="text1">
+              {$oznam->nazov} <span class="glyphicon glyphicon-menu-down glyphicon-news"></span>
+            </a>
+          </h3>
+          {$oznam->text|noescape|text_pred}  
         </div>
-      </div> 
+        <div id="text1" class="collapse" role="tabpanel" aria-labelledby="head1">
+          {$oznam->text|noescape|text_po}
+        </div>
+      </div>
     </div>
   {else}
-    <span class="stav st_info">Nie je žiadna aktuálna aktualita(oznam)</span>
+    <div class="leftrow border-t"><div class="col-xs-12">Nie je žiadna aktuálna aktualita(oznam)</div></div>
   {/if}
 </div>

@@ -1,5 +1,5 @@
 <div n:snippet="prilohyClanok" class="row" n:if="$prilohy->count()">
-	<h3 n:if="strlen($texty['h3'])">{$texty['h3']}</h3>
+	<h3 n:if="$texts->trText('h3') !== 'h3'">{$texts->trText('h3')}</h3>
   <div class="col-xs-12 col-md-12" n:inner-foreach="$prilohy as $subor">
     {var $pr = strtolower($subor->pripona)}
     {if $pr == "mp4" OR $pr == "ogv" OR $pr == "webm" OR $pr == "wmv"}
@@ -7,7 +7,7 @@
          controls="controls" preload="none"></video>
     {else}
       {if $pr == "jpg" OR $pr == "png" OR $pr == "gif" OR $pr == "bmp"}
-        <img class="jslghtbx-thmb img-rounded" src="{$basePath}/{$subor->thumb}" alt="{$subor->nazov}" data-jslghtbx="{$basePath}/{$subor->subor}" class="noajax" data-ajax="false" data-jslghtbx-group="mygroup1">
+        <img class="jslghtbx-thmb" src="{$basePath}/{$subor->thumb}" alt="{$subor->nazov}" data-jslghtbx="{$basePath}/{$subor->subor}" class="noajax" data-ajax="false" data-jslghtbx-group="mygroup1"> {* img-rounded*}
       {elseif $pr == "mp3" OR $pr == "wav"}
         <div class="col-sm-12 col-md-6">
           <div class="thumbnail">

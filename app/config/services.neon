@@ -23,6 +23,7 @@ services:
   - DbTable\Ikonka
   - DbTable\Lang
   - DbTable\News
+  - DbTable\Oznam
   - DbTable\Slider
   - DbTable\Udaje
   - DbTable\Udaje_typ
@@ -33,8 +34,6 @@ services:
   - DbTable\User_profiles
   - DbTable\User_roles
   - DbTable\Verzie
-#blok Oznam
-  - DbTable\Oznam
 
   - App\RouterFactory 
   router: @App\RouterFactory::createRouter
@@ -58,6 +57,7 @@ services:
   - App\AdminModule\Components\Article\TitleImage\EditTitleImageFormFactory
   - App\AdminModule\Components\Clanky\PrilohyClanok\EditPrilohyFormFactory
   - App\AdminModule\Components\Oznam\TitleOznam\ZmenPresmerovanieFormFactory
+  - App\AdminModule\Components\Oznam\TitleOznam\EditTitleImageFormFactory
   - App\AdminModule\Presenters\Forms\Slider\EditSliderFormFactory
   - App\AdminModule\Presenters\Forms\Udaje\EditUdajeFormFactory
   - App\AdminModule\Presenters\Forms\Udaje\AddTypeUdajeFormFactory
@@ -82,6 +82,7 @@ services:
   - App\AdminModule\Components\User\IUserLastControl
   - App\AdminModule\Components\Clanky\IZobrazClanokControl
   - App\AdminModule\Components\Clanky\PrilohyClanok\IPrilohyClanokControl
+  - App\AdminModule\Components\Clanky\ZobrazKartyPodclankov\IZobrazKartyPodclankovControl
   - App\AdminModule\Components\Faktury\IViewFakturyControl
 
   - App\FrontModule\Components\Oznam\IAktualneOznamyControl
@@ -89,6 +90,7 @@ services:
   - App\FrontModule\Components\Clanky\IAktualnyProjektControl
   - App\FrontModule\Components\Clanky\IPrilohyClanokControl
   - App\FrontModule\Components\Clanky\OdkazNaClanky\IOdkazNaClankyControl
+  - App\FrontModule\Components\Clanky\ZobrazKartyPodclankov\IZobrazKartyPodclankovControl
   - App\FrontModule\Components\Slider\ISliderControl
   - App\FrontModule\Components\User\IUserLangMenuControl
   - App\FrontModule\Components\News\INewsControl

@@ -1,0 +1,11 @@
+<div class="webPart col-xs-4">
+  <a href="{plink Clanky: $article->id_hlavne_menu}" title="{$article->view_name}" n:if="$article->hlavne_menu->avatar && is_file('www/files/menu/'.$article->hlavne_menu->avatar)">
+    <img class="img-responsive" src="{$basePath}/www/files/menu/{$article->hlavne_menu->avatar}">
+  </a>
+  <div class="box">
+    <h3><a href="{plink Clanky: $article->id_hlavne_menu}" title="{$article->view_name}">{$article->menu_name}</a></h3>
+    <p n:ifset="$article->id_clanok_lang" class="text-left">
+      {$article->clanok_lang->anotacia}
+    </p>
+  </div>
+</div>

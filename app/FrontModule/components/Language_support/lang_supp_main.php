@@ -3,21 +3,24 @@
 namespace Language_support;
 
 use Nette;
+use DbTable;
 
 /**
  * Hlavna trieda pre podporu jazykov lang_supp_main pre presentre vo FrontModule.
- * Posledna zmena(last change): 06.06.2017
+ * 
+ * Posledna zmena(last change): 27.06.2017
  * 
  * @author Ing. Peter VOJTECH ml. <petak23@gmail.com>
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version 1.0.7
+ * @version 1.0.8
  */
-
 abstract class lang_supp_main extends Nette\Object {
   /** @var string Skratka jazyka */
   protected $jazyk = 'sk';
+  /** @var DbTable\Lang */
+	public $lang;
   /** @var array Samotne texty podla jazykov */
   protected $texty;
   /** @var array Konkretny jazyk pre vystup */
@@ -118,6 +121,11 @@ abstract class lang_supp_main extends Nette\Object {
         'base_component_news_h4'      => "News:",
       ],
     ];
+  
+  /** @param DbTable\Lang $lang */
+  public function __construct(DbTable\Lang $lang) {
+    $this->lang = $lang;
+  }
 
   /** Funkcia na pridanie textu do pola
    * @param string $key Nazov kluca
@@ -131,9 +139,9 @@ abstract class lang_supp_main extends Nette\Object {
   }
 
   /** Nastavenie aktualneho jazyka
-   * @param string $language Skratka jazyka */
+   * @param string|int $language Skratka jazyka alebo jeho id*/
   public function setLanguage($language) {
-    $this->jazyk = $language;
+    $this->jazyk = is_numeric($language) ? $this->lang->find($language)->skratka: $language;
     $this->out_texty = array_merge($this->texty_base[$this->jazyk], $this->texty[$this->jazyk]);
   }
 

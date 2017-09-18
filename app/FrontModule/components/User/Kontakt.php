@@ -1,22 +1,23 @@
 <?php
 namespace App\FrontModule\Components\User;
 
+use Latte;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Nette\Mail\Message;
 use Nette\Mail\SendmailMailer;
-use Latte;
+
 
 /**
  * Komponenta pre vytvorenie kontaktneho formulara a odoslanie e-mailu
  * 
- * Posledna zmena(last change): 30.05.2016
+ * Posledna zmena(last change): 18.09.2017
  *
  * @author Ing. Peter VOJTECH ml. <petak23@gmail.com>
- * @copyright  Copyright (c) 2012 - 2016 Ing. Peter VOJTECH ml.
+ * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version 1.0.3
+ * @version 1.0.4
  */
 
 class Kontakt extends Control {
@@ -49,18 +50,16 @@ class Kontakt extends Control {
    *  'send_ok', 'send_er'
    * @param array $texty - pole textov
    * @param int $rows - pocet riadkov textarea
-   * @param int $cols - pocet stlpcov textarea
-   */
+   * @param int $cols - pocet stlpcov textarea */
   public function setSablona($texty = array(), $rows = NULL, $cols = NULL)
   {
     if (is_array($texty) && count($texty)) { $this->text_form = array_merge($this->text_form, $texty);}
-    if (isset($rows)) $this->textA_rows = $rows;
-    if (isset($cols)) $this->textA_cols = $cols;
+    if (isset($rows)) { $this->textA_rows = $rows;}
+    if (isset($cols)) { $this->textA_cols = $cols;}
   }
 
   /** Funkcia pre nastavenie emailovych adries, na ktore sa odosle formular
-	 * @param  string $emails - pole s emailovymi adresami
-	 */
+	 * @param  string $emails - pole s emailovymi adresami */
   public function setSpravca($emails) {
     if (isset($emails)) {
       $this->emails = $emails;
@@ -68,15 +67,11 @@ class Kontakt extends Control {
   }
   
   /** Funkcia pre nastavenie nazvu stranky
-	 * @param  string $nazov_stranky
-	 */
+	 * @param  string $nazov_stranky */
   public function setNazovStranky($nazov_stranky) {
     $this->nazov_stranky = $nazov_stranky;
   }
 
-  /**
-   * @see Nette\Application\Control#render()
-   */
   public function render() {
     $this->template->setFile(__DIR__ . '/Kontakt.latte');
 		$this->template->h4 = $this->text_form['h4'];
@@ -85,8 +80,7 @@ class Kontakt extends Control {
   }
 
   /** Potvrdenie ucasti form component factory.
-   * @return Nette\Application\UI\Form
-   */
+   * @return Nette\Application\UI\Form */
   protected function createComponentKontaktForm() {
       $form = new Form;
       $form->addProtection();
@@ -99,19 +93,13 @@ class Kontakt extends Control {
            ->setAttribute('rows', $this->textA_rows)
            ->setAttribute('cols', $this->textA_cols)
            ->setRequired($this->text_form['text_sr']);
-      $renderer = $form->getRenderer();
-      $renderer->wrappers['controls']['container'] = 'dl';
-      $renderer->wrappers['pair']['container'] = NULL;
-      $renderer->wrappers['label']['container'] = 'dt';
-      $renderer->wrappers['control']['container'] = 'dd';
       $form->addSubmit('uloz', $this->text_form['uloz']);
       $form->onSuccess[] = [$this, 'onZapisDotaz'];
       return $form;
   }
 
   /** Spracovanie formulara
-   * @param \Nette\Application\UI\Form $form
-   */
+   * @param \Nette\Application\UI\Form $form */
   public function onZapisDotaz(Form $form) {
     $values = $form->getValues(); 				//Nacitanie hodnot formulara
     $templ = new Latte\Engine;

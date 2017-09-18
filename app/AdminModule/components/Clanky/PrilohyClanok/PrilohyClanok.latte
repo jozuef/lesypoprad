@@ -2,7 +2,7 @@
   <div class="panel-heading">
     <h3>
       Prílohy 
-      <button n:if="$admin_links_prilohy['elink']" type="button" class="btn btn-success button-right" data-toggle="modal" data-target="#myModalAddPrilohaChange" title="Pridaj prílohu k položke: {$clanok->nazov}">
+      <button n:if="$admin_links_prilohy['elink']" type="button" class="btn btn-success button-right" data-toggle="modal" data-target="#myModalAddPrilohaChange" title="Pridaj prílohu k položke: {$clanok->view_name}">
         <i class="fa fa-file-o"></i> Pridaj
       </button>
     </h3>
@@ -41,7 +41,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Pridanie prílohy k položke: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">Pridanie prílohy k položke: {$clanok->view_name}</h4>
       </div>
       <div class="modal-body">
         {control editPrilohyForm}

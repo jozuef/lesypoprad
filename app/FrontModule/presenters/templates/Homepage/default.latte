@@ -1,27 +1,41 @@
-{* Posledna zmena(last change): 14.12.2016
+{* Posledna zmena(last change): 26.06.2017
  *
  * @author Ing. Peter VOJTECH ml <petak23@gmail.com>
- * @copyright Copyright (c) 2012 - 2016 Ing. Peter VOJTECH ml.
+ * @copyright Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link http://petak23.echo-msz.eu
- * @version 1.0.3
+ * @version 1.0.2
  *}
 {block content}
+<div class="row">
+  {control ukazClanok-9}
+  <section id="parts" class="margin-h">
+    {control odkazNaClanky-2 template=>'LesyPP_Homepage'}
+    {control odkazNaClanky-3 template=>'LesyPP_Homepage'}
+    {control odkazNaClanky-7 template=>'LesyPP_Homepage'}
+  </section>
+</div>     
 
-
-
-    <div id="clanok">
-      {*<?php require("./function/ukaz_clanok.php"); ?>
+<!-- oznamy -->
+<section id="news" role="tablist" aria-multiselectable="true">
+  <div class="row border-b">
+    {control aktualne}
+  </div>
+</section>
+        
+<!-- mapy -->  
+<section id="googleMaps" class="">
+  <div class="leftrow">
+    <div class="text-box col-xs-12 col-sm-4 shadow-1">
+      <h3><small>Mapa mestských lesov Poprad</small><br>Oblasť Kvetnica</h3>
     </div>
+    <div id="map1" class="col-xs-12 col-sm-8"></div>
   </div>
-    
-  {*<div id="pata">
-    <div id="mapa"><?php include("./bloky/vypis_mapa.php"); ?></div>
-    <p>
-      &copy; <?= $hl_udaje['titulka'] ?> - Posledná aktualizácia 08.02.2017-PV <br />
-      <a href="./index.php?co=admin" title="Prihlásenie pre správcu">Prihlásenie pre správcu</a>
-    </p>
+  <div class="rightrow">
+    <div class="text-box col-xs-12 col-sm-4">
+      <h3><small>Mapa mestských lesov Poprad</small><br>Oblasť Gerlachov</h3>
+    </div>
+    <div id="map2" class="col-xs-12 col-sm-8"></div>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8yGkZAqQpywm922mhn4rNpAUuCpHgjPs&callback=initMap"></script>
   </div>
-  <div id="pataObr"> </div>*}
- 
-</div>
+</section>

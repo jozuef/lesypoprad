@@ -8,13 +8,13 @@ use DbTable;
 
 /**
  * Komponenta pre zjedndusenie odoslania emailu
- * Posledna zmena(last change): 24.05.2017
+ * Posledna zmena(last change): 06.07.2017
  * 
  * @author Ing. Peter VOJTECH ml. <petak23@gmail.com> 
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
- * @version 1.0.5
+ * @version 1.0.6
  */
 
 class EmailControl extends UI\Control {
@@ -27,15 +27,15 @@ class EmailControl extends UI\Control {
   private $template;
   /** @var string */
   private $from;
-  /** @var DbTable\User_profiles */
-  public $user_profiles;
+  /** @var DbTable\User_main */
+  public $user_main;
 
   /**
-   * @param DbTable\User_profiles $user_profiles */
-  public function __construct(DbTable\User_profiles $user_profiles) {
+   * @param DbTable\User_main $user_main */
+  public function __construct(DbTable\User_main $user_main) {
     parent::__construct();
     $this->mail = new Message;
-    $this->user_profiles = $user_profiles;
+    $this->user_main = $user_main;
   }
   
   /** 
@@ -45,8 +45,8 @@ class EmailControl extends UI\Control {
    * @return \PeterVojtech\Email\EmailControl */
   public function nastav($template, $from, $id_user_roles) {
     $this->template = $template;
-    $this->from = $this->user_profiles->find($from)->users->email;
-    $this->email_list = $this->user_profiles->emailUsersListStr($id_user_roles);
+    $this->from = $this->user_main->find($from)->email;
+    $this->email_list = $this->user_main->emailUsersListStr($id_user_roles);
     foreach (explode(",", $this->email_list) as $c) {
       $this->mail->addTo(trim($c));
     }
@@ -61,7 +61,7 @@ class EmailControl extends UI\Control {
    */
   public function send($params, $subjekt) {
     $templ = new Latte\Engine;
-    echo($templ->renderToString($this->template, $params));die();
+//    echo($templ->renderToString($this->template, $params));die();
     $this->mail->setFrom($params["site_name"].' <'.  $this->from.'>');
     $this->mail->setSubject($subjekt)
          ->setHtmlBody($templ->renderToString($this->template, $params));

@@ -2,6 +2,7 @@
 namespace App\FrontModule\Components\Oznam;
 use Nette;
 use DbTable;
+use Language_support;
 
 /**
  * Komponenta pre zobrazenie aktualnych oznamov pre FRONT modul
@@ -16,21 +17,20 @@ use DbTable;
 class AktualneOznamyControl extends Nette\Application\UI\Control {
   /** @var \Nette\Database\Table\Selection */
   private $oznam;
-  /** @var array Texty pre výpis */
-  private $texty = [
-      "h2"    =>"Aktuality",
-      "viac"  =>"viac",
-      "title" =>"Zobrazenie celého obsahu.",
-                        ];
+
   private $nastavenie;
+  
+  /** @var Language_support\Oznam */
+	protected $texts;
 
   /** @param DbTable\Oznam $oznam  */
-  public function __construct(DbTable\Oznam $oznam) {
+  public function __construct(DbTable\Oznam $oznam, Language_support\Oznam $oznam_texts) {
     parent::__construct();
     $this->oznam = $oznam->aktualne();
-    
+    $this->texts = $oznam_texts;
+    $this->texts->setLanguage("sk");
   }
-
+  
   /** @param array $nastavenie
    * @return \App\FrontModule\Components\Oznam\AktualneOznamyControl
    */
@@ -39,20 +39,12 @@ class AktualneOznamyControl extends Nette\Application\UI\Control {
     return $this;
   }
 
-  /** Nastavenie textov pre komponentu
-   * @param array $t Texty pre komponentu
-   * @return \App\FrontModule\Components\Oznam\AktualneOznamyControl
-   */
-  public function setTexty($t) {
-    if (is_array($t) && count($t)) { $this->texty = array_merge ($this->texty, $t); }
-    return $this;
-  }
   
   public function render() {
     $this->template->setFile(__DIR__ . '/Aktualne.latte');
     $this->template->oznamy = $this->oznam;
     $this->template->nastavenie = $this->nastavenie;
-    $this->template->texty = $this->texty;
+    $this->template->texts = $this->texts;//dump($this->texts);die();
     $this->template->render();
   }
   
@@ -80,10 +72,18 @@ class AktualneOznamyControl extends Nette\Application\UI\Control {
       $rozloz = explode("{end}", $text);
       $vysledok = $text;
 			if (count($rozloz)>1) {		 //Ak som nasiel znacku
-				$vysledok = $rozloz[0].\Nette\Utils\Html::el('a class="cely_clanok"')->href($servise->link("this"))->title($servise->texty["title"])
-                ->setHtml('&gt;&gt;&gt; '.$servise->texty["viac"]).'<div class="ostatok">'.$rozloz[1].'</div>';
+				$vysledok = $rozloz[0].\Nette\Utils\Html::el('a class="cely_clanok"')->href($servise->link("this"))->title($servise->texts->trTexty("base_title"))
+                ->setHtml('&gt;&gt;&gt; '.$servise->texts->trTexty("base_viac")).'<div class="ostatok">'.$rozloz[1].'</div>';
 			}
       return $vysledok;
+    });
+    $template->addFilter('text_pred', function ($text) {
+      $rozloz = explode("{end}", $text);
+      return $rozloz[0];
+    });
+    $template->addFilter('text_po', function ($text) {
+      $rozloz = explode("{end}", $text);
+      return count($rozloz) > 1 ? $rozloz[1] : "";
     });
     $template->addFilter('textreg', function ($text, $id_user_roles, $max_id_reg) {
       for ($i = $max_id_reg; $i>=0; $i--) {

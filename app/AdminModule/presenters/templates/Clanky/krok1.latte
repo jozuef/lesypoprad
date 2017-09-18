@@ -3,12 +3,12 @@
 <script n:if="count($pridanie)">
   $(function() {
     {foreach $pridanie as $j}
-    {var $j_naz = '#frm-menuEditForm-'.$j->skratka.'_nazov'}
-    {var $j_des = '#frm-menuEditForm-'.$j->skratka.'_description'}
-    $({$j_naz})
+    {var $j_mn = '#frm-menuEditForm-'.$j->skratka.'_menu_name'}
+    {var $j_vn = '#frm-menuEditForm-'.$j->skratka.'_view_name'}
+    $({$j_mn})
       .focusout(function() {
         var nazov = $(this).val();
-        $({$j_des}).val( nazov );
+        $({$j_vn}).val( nazov );
       });
     {/foreach}
   });

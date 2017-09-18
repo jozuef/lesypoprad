@@ -1,3 +1,21 @@
-<h4>{$h4}</h4>
-<p n:if="isset($uvod) && strlen($uvod)">{$uvod}</p>
-{control kontaktForm}
+<div id="contact-form" class="col-xs-12 col-md-12">
+  <h4 class="text-left">{$h4}</h4>
+  {*control kontaktForm*} 
+  <form n:name=kontaktForm>
+		<div class="form-group">
+			<label for="username" n:name=meno>Vaše meno: </label>
+      <input name="username" n:name=meno type="text" class="form-control">
+		</div>
+		<div>
+  		<label for="email" n:name=email>Váš email: </label>
+      <input name="email" n:name=email type="email" class="form-control">
+  	</div>
+		<div>
+  		<label for="message" n:name=text>Správa: </label>
+      <textarea name="message" n:name=text class="form-control" rows="4"></textarea>
+  	</div>
+		<div>
+  	<label></label><input n:name=uloz type="submit" class="form-control button">
+		</div>
+  </form>
+</div> 

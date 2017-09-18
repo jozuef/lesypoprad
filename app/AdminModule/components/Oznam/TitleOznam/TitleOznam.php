@@ -27,6 +27,7 @@ class TitleOznamControl extends Nette\Application\UI\Control {
   /** @var ZmenPresmerovanieFormFactory */
 	public $zmenPresmerovanie;
 
+
   /**
    * @param DbTable\Hlavne_menu_lang $hlavne_menu_lang
    * @param DbTable\Udaje $udaje
@@ -47,6 +48,7 @@ class TitleOznamControl extends Nette\Application\UI\Control {
 	public function render(/*$params*/) {
     $this->template->setFile(__DIR__ . '/TitleOznam.latte');
     $this->template->por_oznamy = $this->udaje->getOznamUsporiadanie();
+    $this->template->oznamy_nastav = $this->udaje->findBy(["druh.presenter"=>"Oznam"]);
 //    $this->template->presmerovanie = $this->udaje->getUdajInt('oznam_presmerovanie'); 
     $this->template->clanok_presmerovanie = ($id = $this->udaje->getUdajInt('oznam_presmerovanie')) > 0 ? $this->hlavne_menu_lang->find($id) : FALSE;
 		$this->template->render();

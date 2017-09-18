@@ -2,7 +2,7 @@
  *
  * Modul: ADMIN
  *
- * Posledna zmena(last change): 19.05.2017
+ * Posledna zmena(last change): 10.07.2017
  * @copyright  Copyright (c) 2012 - 2017 Ing. Peter VOJTECH ml.
  * @license
  * @link       http://petak23.echo-msz.eu
@@ -17,15 +17,23 @@
 </div>
 <div class="col-xs-12 col-md-12 table-responsive">
   <table class="table table-bordered table-striped table-hover table-clenovia">
-    <tr><th>Komentár</th><th>Názov</th><th>Hodnota</th><th>Prístup</th><th>Druh</th><th>Typ</th><th></th></tr>
+    <tr>
+      <th>Komentár</th>
+      <th>Názov</th>
+      <th>Hodnota</th>
+      <th n:if="$user->isInRole('admin')">Prístup</th>
+      <th n:if="$user->isInRole('admin')">Druh</th>
+      <th n:if="$user->isInRole('admin')">Typ</th>
+      <th></th>
+    </tr>
     <tr n:foreach="$udaje_w as $u">
       <td>{$u->comment}</td>
       <td>{$u->nazov}</td>
       <td n:if="$u->id_udaje_typ == 3 " n:class="$u->text == 1 ? success : danger">{$p = $u->text == 1 ? 'Povolene' : 'Zakázané'}</td>
       <td n:if="$u->id_udaje_typ <> 3 ">{$u->text}</td>
-      <td>{$u->user_roles->role}</td>
-      <td>{ifset $u->id_druh}{$u->druh->presenter}{/ifset}</td>
-      <td>{$u->udaje_typ->nazov}</td>
+      <td n:if="$user->isInRole('admin')">{$u->user_roles->role}</td>
+      <td n:if="$user->isInRole('admin')">{ifset $u->id_druh}{$u->druh->presenter}{/ifset}</td>
+      <td n:if="$user->isInRole('admin')">{$u->udaje_typ->nazov}</td>
       <td class="editacne center" n:if="$user->isAllowed('Admin:Udaje', 'edit')">
         <a n:href="Udaje:edit $u->id" title="Editacia údaja {$u->nazov}" class="button-right edit-ikon"><i class="fa fa-pencil-square fa-1_5x"></i></a>
         <a href="{link confirmForm:confirmDelete! id => $u->id, nazov => $u->nazov}"

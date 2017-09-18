@@ -3,19 +3,18 @@
       $node - polozka menu
       $akoLi - int - polozka sa zobrazi ako li html tag ak je > 0
       $nastav - pole nastaveni
-    ?  $basePath -
+      $basePath 
 *}
 {define #vnutro}
 {if strlen($nastav['avatar']) && $nastav['article_avatar_view_in']}
-  <div class="avatar-img">
-    {if isset($node->avatar) && is_file('www/'.$nastav['avatar'].$node->avatar)}
+  {if $node->avatar && is_file('www/'.$nastav['avatar'].$node->avatar)}
+    <div class="avatar-img">
       <img src="{$basePath}/www/{$nastav['avatar']}{$node->avatar}" alt="Titulný obrázok">
-    {else}
-      <img src="{$basePath}/www/ikonky/folder_image.png" alt="Titulný obrázok" class="not-found-avatar">
-    {/if}  
-  </div>
+    </div>
+  {elseif $node->node_class}
+    <i class="{$node->node_class}"></i>
+  {/if}  
 {/if}
-<span n:ifset="$node->node_class" class="{$node->node_class}"></span> 
 <span class="node-text">
   {$node->name}
   <small n:if="isset($node->tooltip) && strlen(trim($node->tooltip))">{$node->tooltip}</small>

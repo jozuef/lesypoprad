@@ -10,15 +10,17 @@
     <i class="fa fa-{$clanok->hlavne_menu->ikonka} fa-4x"></i>
     {include #links}
   {elseif $clanok->hlavne_menu->avatar}
-    <img src="{$basePath}/www/files/menu/{$clanok->hlavne_menu->avatar}" alt="{$clanok->nazov}">
+    <img src="{$basePath}/www/files/menu/{$clanok->hlavne_menu->avatar}" alt="{$clanok->view_name}">
     {include #links}
   {else}
     {var $title_form = 'Pridanie titulného obrázku/ikonky'}
     <button n:if="$admin_links['edit']" type="button" class="add-title-image btn btn-primary btn-xs" data-toggle="modal" data-target="#myModalTitleImageChange" title="{$title_form}">{$title_form}</button>
   {/if}
   </div>
-  <h2>{$clanok->nazov} <small>[id={$clanok->id_hlavne_menu}]</small>
+  <h2>{$clanok->menu_name} <small>[id={$clanok->id_hlavne_menu}]</small>
     <button n:if="$admin_links['edit']" type="button" class="edit " data-toggle="modal" data-target="#myModalTitleH2Change" title="Zmena nadpisu">E</button>
+    <br />
+    <small>{$clanok->view_name}</small>
   </h2>
 </div>
 
@@ -28,7 +30,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">{$title_form} k položke: {$clanok->nazov}</h4>
+        <h4 class="modal-title" id="myModalLabel">{$title_form} k položke: {$clanok->view_name}</h4>
       </div>
       <div class="modal-body">
         {control editTitleImageForm}

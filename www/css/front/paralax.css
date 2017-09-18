@@ -1,0 +1,83 @@
+/*css pre fungovanie zvislej paralaxy pre grafiku 
+v hornej casti (stromy a tatry) webu*/
+*   
+{
+  box-sizing: border-box;
+}
+
+.parallax {
+  perspective: 100px;
+  height: auto; 
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-left: 0;
+}
+
+.parallax_layer
+{
+  position: absolute;
+  top: 350px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-position: center top;
+}
+/*.parallax_layer img {
+  display: block;
+  position: absolute;
+  top: 10%;
+  width: auto;
+}*/
+.parallax_layer_0 
+{
+  -ms-transform: translateZ(-50px) scale(1.55);
+  -webkit-transform: translateZ(-50px) scale(1.55);
+  transform: translateZ(-50px) scale(1.55);
+  background-image: url(../images/bg-tatry.png);
+  background-repeat: no-repeat;
+  top: 310px;
+}
+header {
+  /*transform: translateZ(-40px) scale(1);
+  position: relative;
+  top: -200px;*/
+}
+.parallax_layer_0 h1 
+{
+  transform: none;
+}
+
+.parallax_layer_1 
+{
+  -ms-transform: translateZ(-20px) scale(1.25);
+  -webkit-transform: translateZ(-20px) scale(1.25);
+  transform: translateZ(-20px) scale(1.25);
+  background-image: url(../images/bg-les2.png);
+  background-repeat: repeat-x;
+}
+
+.parallax_layer_2 
+{
+background-image: url(../images/bg-les1.png);
+  background-repeat: repeat-x;
+  -ms-transform: translateZ(0) scale(1);
+  -webkit-transform: translateZ(0px) scale(1);
+  transform: translateZ(0px) scale(1);
+  z-index: 5;
+  
+}
+
+.parallax_cover
+{
+  background: #199459;
+  position: absolute;
+  top: 550px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}

@@ -28,6 +28,7 @@ class RouterFactory {
     $router[] = new Route('urllist.txt', 'Mapa:Mapa:urllist', Route::ONE_WAY);
     $router[] = new Route('sitemap.xml', 'Mapa:Mapa:sitemap', Route::ONE_WAY);
     $router[] = new Route('clanky/domov', 'Front:Homepage:default', Route::ONE_WAY);
+    $router[] = new Route('clanky/home', 'Front:Homepage:default', Route::ONE_WAY);
 
     $router[] = $adminRouter = new RouteList('Admin');
     $adminRouter[] = new Route('admin/<presenter>/<action>', 'Homepage:default');

@@ -1,7 +1,10 @@
 {if isset($startNode)}
-  {var $ukaz = isset($startNode->nodes) && count($startNode->nodes)}
-  {var $level=1}
-  <div class="{$nastav['divClass']}" n:if="count($startNode->nodes)" n:tag-if="$nastav['divClass'] && $ukaz">
-    {include 'LesyPP_menu_node.latte' node => $startNode, hideName => true, path=>$path, showAll=>$showAll, level=>$level, nastav=>$nastav, akoLi=>1}
-  </div>
-{/if}
+  <nav id="topmenu" class="navbar nav-justified navbar-fixed-top navbar-toggleable-xs">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="glyphicon glyphicon-menu-hamburger"></span>
+    </button>
+    <div id="navContent" class="collapse navbar-collapse">
+      {include 'LesyPP_Tree_Main_node.latte' node => $startNode, hideName => true, level=>1}
+    </div>
+  </nav>  
+{/if}  
